@@ -4,6 +4,10 @@ import { commandMap } from "./commandMap.js";
 import { commandMapb} from "./commandMapb.js"
 import { PokeAPI } from "./pokeapi.js";
 import { type CLIcommand, State } from "./state.js";
+import { commandExplore } from "./commandExplore.js";
+import { commandCatch } from "./commandCatch.js";
+import { commandInspect } from "./commandInspect.js";
+import { commandPokedex } from "./commandPokedex.js";
 
 export function getCommands(): Record<string, CLIcommand> {
     return {
@@ -35,7 +39,36 @@ export function getCommands(): Record<string, CLIcommand> {
             callback: async (state: State) => {
                 await commandMapb(state);
             }
-        }
+        },
+        explore:{
+            name: 'explore',
+            description: 'Explores a specific location',
+            callback: async (state: State, args: string[]) => {
+                await commandExplore(state, args);
+            }
+        },
+        catch:{
+            name: 'catch',
+            description: 'Catches a Pokémon',
+            callback: async (state: State, args: string[]) => {
+                await commandCatch(state, args);
+            }
+        },
+        inspect:{
+            name: 'inspect',
+            description: 'Inspects a specific Pokémon',
+            callback: async (state: State, args: string[]) => {
+                await commandInspect(state, args);
+            }
+        },
+        pokedex:{
+            name: 'pokedex',
+            description: 'Displays the Pokémon you have caught',
+            callback: async (state: State) => {
+                await commandPokedex(state);
+            }
+    
         // 若有其他命令 handler，請在此擴充
     }
 };
+}
